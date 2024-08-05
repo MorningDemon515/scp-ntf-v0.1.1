@@ -2016,46 +2016,82 @@ DrawLoading(100, True)
 
 LoopDelay = MilliSecs()
 
-Global Movie_ShouldPlay% = GetINIInt("NineTailedFoxMod\options.INI","ingame","play movie","1")
-Global ThreadFunctionPointer,Thread
-Global MoviePlayed%
-Global movie, movieSFX%
+PlayStartupVideos()
 
-If MoviePlayed%=False And Movie_ShouldPlay%=True
+Function PlayStartupVideos()
+    if GetINIInt("NineTailedFoxMod\options.INI","ingame","play movie") = 0 Then return
+
 	HidePointer()
 	Local SplashScreenAudio%
-	
+	Local Movie%
 	Local ScaledGraphicHeight%
-    Local Ratio# = Float(RealGraphicWidth) / Float(RealGraphicHeight)
+	Local Ratio# = Float(GraphicWidth) / Float(GraphicHeight)
 
 	If Ratio > 1.76 And Ratio < 1.78 Then
-		ScaledGraphicHeight = RealGraphicHeight
+		ScaledGraphicHeight = GraphicHeight
 	Else
-    ScaledGraphicHeight = Float(RealGraphicWidth) / (16.0 / 9.0)
+		ScaledGraphicHeight = Float(RealGraphicWidth) / (16.0 / 9.0)
 	EndIf
-	
-	Local MovieFile$
 
-		MovieFile = "NineTailedFoxMod\GFX\menu\ntf_intro_final"
-				
-		Movie% = OpenMovie(MovieFile + ".avi")
-		Movie = OpenMovie(MovieFile + ".avi")
+	Local MovieFile$, i%
 
-		SplashScreenAudio% = StreamSound_Strict("ntf_aud_track" + ".ogg", SFXVolume, 0)
+		Movie% = OpenMovie("NineTailedFoxMod\GFX\menu\ntf_intro_final.mpg")
+		SplashScreenAudio% = PlayMusic("NineTailedFoxMod\GFX\menu\ntf_aud_track.ogg")
 
 		Repeat
 			Cls()
-			DrawMovie(Movie, 0, (RealGraphicHeight / 2 - ScaledGraphicHeight / 2), RealGraphicWidth, ScaledGraphicHeight)
+			DrawMovie(Movie, 0, (GraphicHeight / 2 - ScaledGraphicHeight / 2), GraphicWidth, ScaledGraphicHeight)
 			Flip()
-		Until (GetKey() Or (Not IsStreamPlaying_Strict(SplashScreenAudio)))
-		StopStream_Strict(SplashScreenAudio)
+		Until (GetKey() or (Not ChannelPlaying(SplashScreenAudio)))
+		StopChannel(SplashScreenAudio)
 		CloseMovie(Movie)
 
 		Cls()
 		Flip()
 	
 	ShowPointer()
-EndIf
+End Function
+
+;Global Movie_ShouldPlay% = GetINIInt("NineTailedFoxMod\options.INI","ingame","play movie","1")
+;Global ThreadFunctionPointer,Thread
+;Global MoviePlayed%
+;Global movie, movieSFX%
+
+;If MoviePlayed%=False And Movie_ShouldPlay%=True
+;	HidePointer()
+;	Local SplashScreenAudio%
+;	
+;	Local ScaledGraphicHeight%
+ ;   Local Ratio# = Float(GraphicWidth) / Float(GraphicHeight)
+;
+;	If Ratio > 1.76 And Ratio < 1.78 Then
+;		ScaledGraphicHeight = GraphicHeight
+;	Else
+ ;   ScaledGraphicHeight = Float(GraphicWidth) / (16.0 / 9.0)
+;	EndIf
+	
+;	Local MovieFile$
+;
+;		MovieFile = "NineTailedFoxMod\GFX\menu\ntf_intro_final"
+;				
+;		Movie% = OpenMovie(MovieFile + ".avi")
+;		Movie = OpenMovie(MovieFile + ".avi")
+
+;		SplashScreenAudio% = StreamSound_Strict("ntf_aud_track" + ".ogg", SFXVolume, 0)
+;
+;		Repeat
+;;			Cls()
+;			DrawMovie(Movie, 0, (GraphicHeight / 2 - ScaledGraphicHeight / 2), GraphicWidth, ScaledGraphicHeight)
+;			Flip()
+;		Until (GetKey() Or (Not IsStreamPlaying_Strict(SplashScreenAudio)))
+;		StopStream_Strict(SplashScreenAudio)
+;		CloseMovie(Movie)
+
+;		Cls()
+;		Flip()
+	
+;	ShowPointer()
+;EndIf
 
 ;----------------------------------------------------------------------------------------------------------------------------------------------------
 ;----------------------------------------------       		MAIN LOOP                 ---------------------------------------------------------------
