@@ -345,7 +345,7 @@ Function StreamSound_Strict(file$,volume#=1.0,custommode=Mode)
 	
 	Local st.Stream = New Stream
 	
-	st\chn = PlayMusic(File, CustomMode + TwoD)
+	st\chn = PlayMusic(File)
 	
 	If st\chn = -1
 		CreateConsoleMsg("Failed to stream Sound (returned -1): " + Chr(34) + file$ + Chr(34))
@@ -367,7 +367,7 @@ Function IsStreamPlaying_Strict(streamHandle%)
 		;CreateConsoleMsg("Failed to find stream Sound: Unknown Stream")
 		Return
 	EndIf
-	If st\chn=0 Lor st\chn=-1
+	If st\chn=0 Or st\chn=-1
 		CreateConsoleMsg("Failed to find stream Sound: Return value "+st\chn)
 		Return
 	EndIf
@@ -381,7 +381,7 @@ Function StopStream_Strict(streamHandle%)
 	
     If st = Null Then Return
 
-	If st\chn=0 Lor st\chn=-1
+	If st\chn=0 Or st\chn=-1
 
 		CreateConsoleMsg("Failed to stop stream Sound: Return value "+st\chn)
 		Return

@@ -1458,7 +1458,7 @@ Function UpdateLauncher()
 			Color 0, 0, 0
 			If SelectedGFXDriver = i Then Rect(x - 1, y - 1, 290, 20, False)
 			;text(x, y, bbGfxDriverName(i))
-			LimitText(ConvertToUTF8(GfxDriverName(i)), x, y+4, 290)
+			LimitText(GfxDriverName(i), x, y+4, 290)
 			If MouseOn(x - 1, y - 1, 290, 20) Then
 				Color 100, 100, 100
 				Rect(x - 1, y - 1, 290, 20, False)

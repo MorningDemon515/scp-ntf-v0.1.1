@@ -2047,7 +2047,7 @@ If MoviePlayed%=False And Movie_ShouldPlay%=True
 			Cls()
 			DrawMovie(Movie, 0, (RealGraphicHeight / 2 - ScaledGraphicHeight / 2), RealGraphicWidth, ScaledGraphicHeight)
 			Flip()
-		Until (GetKey() Lor (Not IsStreamPlaying_Strict(SplashScreenAudio)))
+		Until (GetKey() Or (Not IsStreamPlaying_Strict(SplashScreenAudio)))
 		StopStream_Strict(SplashScreenAudio)
 		CloseMovie(Movie)
 
