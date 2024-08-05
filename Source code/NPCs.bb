@@ -277,20 +277,20 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			temp# = (GetINIFloat("DATA\NPCs.ini", "SCP-173", "scale") / MeshDepth(n\obj))			
 			ScaleEntity n\obj, temp,temp,temp
 			
-			If BumpEnabled Then 		
-				diff1 = LoadTexture_Strict("GFX\npcs\173texture.png")
-				bump1 = LoadTexture_Strict("GFX\npcs\173_norm.jpg")
-				spec1 = LoadTexture_Strict("GFX\npcs\173_spec.jpg")
-				TextureBlend bump1, FE_BUMP
-				TextureBlend spec1, FE_SPECULAR0
+			;If BumpEnabled Then 		
+				;diff1 = LoadTexture_Strict("GFX\npcs\173texture.png")
+				;bump1 = LoadTexture_Strict("GFX\npcs\173_norm.jpg")
+				;spec1 = LoadTexture_Strict("GFX\npcs\173_spec.jpg")
+				;TextureBlend bump1, FE_BUMP
+				;TextureBlend spec1, FE_SPECULAR0
 				
-				EntityTexture n\obj, spec1, 0, 0
-				EntityTexture n\obj, bump1, 0, 1
-				EntityTexture n\obj, diff1, 0, 2
-				FreeTexture diff1
-				FreeTexture bump1
-				FreeTexture spec1
-			EndIf
+				;EntityTexture n\obj, spec1, 0, 0
+				;EntityTexture n\obj, bump1, 0, 1
+				;EntityTexture n\obj, diff1, 0, 2
+				;FreeTexture diff1
+				;FreeTexture bump1
+				;FreeTexture spec1
+			;EndIf
 			
 			;SetAnimTime n\obj, 68	
 			
@@ -311,17 +311,17 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			EntityType n\Collider, HIT_PLAYER
 			n\obj = LoadAnimMesh_Strict("GFX\npcs\106_2.b3d")
 			
-			If BumpEnabled Then 		
-				diff1 = LoadTexture_Strict("GFX\npcs\106_diffuse.png")
-				bump1 = LoadTexture_Strict("GFX\npcs\106_normals.png")
-				TextureBlend bump1, FE_BUMP
+			;If BumpEnabled Then 		
+				;diff1 = LoadTexture_Strict("GFX\npcs\106_diffuse.png")
+				;bump1 = LoadTexture_Strict("GFX\npcs\106_normals.png")
+				;TextureBlend bump1, FE_BUMP
 				;TextureBlend di1, FE_SPECULAR0
 				
-				EntityTexture n\obj, bump1, 0, 0
-				EntityTexture n\obj, diff1, 0, 1
-				FreeTexture diff1
-				FreeTexture bump1
-			EndIf
+				;EntityTexture n\obj, bump1, 0, 0
+				;EntityTexture n\obj, diff1, 0, 1
+				;FreeTexture diff1
+				;FreeTexture bump1
+			;EndIf
 			
 			temp# = (GetINIFloat("DATA\NPCs.ini", "SCP-106", "scale") / 2.2)		
 			ScaleEntity n\obj, temp, temp, temp
@@ -588,33 +588,33 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			If n\obj = 0 Then 
 				n\obj = LoadAnimMesh_Strict("GFX\NPCs\scp-939.b3d")
 				
-				If BumpEnabled Then
-					bump1 = LoadTexture_Strict("GFX\npcs\scp-939_licker_normal.png")
-					TextureBlend bump1, FE_BUMP
+				;If BumpEnabled Then
+					;bump1 = LoadTexture_Strict("GFX\npcs\scp-939_licker_normal.png")
+					;TextureBlend bump1, FE_BUMP
 					
-					For i = 2 To CountSurfaces(n\obj)
-						sf = GetSurface(n\obj,i)
-						b = GetSurfaceBrush( sf )
-						If b<>0 Then
-							t1 = GetBrushTexture(b,0)
-							If t1<>0 Then
-								Select Lower(StripPath(TextureName(t1)))
-									Case "scp-939-licker_diffusetest01.png"
+					;For i = 2 To CountSurfaces(n\obj)
+						;sf = GetSurface(n\obj,i)
+						;b = GetSurfaceBrush( sf )
+						;If b<>0 Then
+							;t1 = GetBrushTexture(b,0)
+							;If t1<>0 Then
+								;Select Lower(StripPath(TextureName(t1)))
+									;Case "scp-939-licker_diffusetest01.png"
 										
-										BrushTexture b, bump1, 0, 0
-										BrushTexture b, t1, 0, 1
-										PaintSurface sf,b
+										;BrushTexture b, bump1, 0, 0
+										;BrushTexture b, t1, 0, 1
+										;PaintSurface sf,b
 										
 				                  ;If StripPath(TextureName(t1)) <> "" Then FreeTexture t1
 				                  ;FreeBrush b   
-								End Select
-								FreeTexture t1
-							EndIf
-							FreeBrush b
-						EndIf
-					Next
-					FreeTexture bump1
-				EndIf
+								;End Select
+								;FreeTexture t1
+							;EndIf
+							;FreeBrush b
+						;EndIf
+					;Next
+					;FreeTexture bump1
+				;EndIf
 				
 				temp# = GetINIFloat("DATA\NPCs.ini", "SCP-939", "scale")/2.5
 				ScaleEntity n\obj, temp, temp, temp		
@@ -631,16 +631,16 @@ Function CreateNPC.NPCs(NPCtype%, x#, y#, z#)
 			temp# = GetINIFloat("DATA\NPCs.ini", "SCP-066", "scale")/2.5
 			ScaleEntity n\obj, temp, temp, temp		
 			
-			If BumpEnabled Then 
-				diff1 = LoadTexture_Strict("GFX\npcs\scp-066_diffuse01.png")
-				bump1 = LoadTexture_Strict("GFX\npcs\scp-066_normal.png")
-				TextureBlend bump1, FE_BUMP
-				TextureBlend spec1, FE_SPECULAR0
-				EntityTexture n\obj, bump1, 0, 1
-				EntityTexture n\obj, diff1, 0, 2
-				FreeTexture diff1
-				FreeTexture bump1
-			EndIf
+			;If BumpEnabled Then 
+				;diff1 = LoadTexture_Strict("GFX\npcs\scp-066_diffuse01.png")
+				;bump1 = LoadTexture_Strict("GFX\npcs\scp-066_normal.png")
+				;TextureBlend bump1, FE_BUMP
+				;TextureBlend spec1, FE_SPECULAR0
+				;EntityTexture n\obj, bump1, 0, 1
+				;EntityTexture n\obj, diff1, 0, 2
+				;FreeTexture diff1
+				;FreeTexture bump1
+			;EndIf
 			
 			n\Speed = (GetINIFloat("DATA\NPCs.ini", "SCP-066", "speed") / 100.0)
 		Case NPCtype178
@@ -3318,7 +3318,7 @@ Function UpdateNPCs()
 								Else
 									n\PathLocation = n\PathLocation + 1
 								EndIf
-								 ;etsimässä pelaajaa, palataan takaisin "hyökkäysmoodiin"
+								 ;etsim???ss??? pelaajaa, palataan takaisin "hy???kk???ysmoodiin"
 							Else
 								If n\Path[n\PathLocation]\door <> Null Then
 									If n\Path[n\PathLocation]\door\open = False Then

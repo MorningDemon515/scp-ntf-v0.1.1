@@ -35,7 +35,7 @@ Global SelectedInputBox%
 
 Global SavePath$ = "Saves\"
 
-;nykyisen tallennuksen nimi ja samalla missä kansiossa tallennustiedosto sijaitsee saves-kansiossa
+;nykyisen tallennuksen nimi ja samalla missï¿½ kansiossa tallennustiedosto sijaitsee saves-kansiossa
 Global CurrSave$
 
 Global SaveGameAmount%
@@ -260,7 +260,7 @@ Function UpdateMainMenu()
 				Case 4
 					txt = Lang_Replace("QUIT")
 					If temp Then
-						DeInitExt
+						;DeInitExt
 						End
 					EndIf
 			End Select
@@ -1229,9 +1229,9 @@ Function UpdateMainMenu()
 				
 				y=y+30*MenuScale
 				
-				Color 255,255,255				
+				Color 100,100,100				
 				Text (x + 20 * MenuScale, y, "Enable bump mapping:")	
-				BumpEnabled = DrawTick(x + 310 * MenuScale, y + MenuScale, BumpEnabled)	
+				DrawTick(x + 310 * MenuScale, y + MenuScale, False, True)	
 				
 				;---------------------- sounds ------------------------------------------------
 				
@@ -1385,11 +1385,11 @@ Function UpdateLauncher()
 	MenuScale = 1
 	
 	Graphics3DExt(LauncherWidth, LauncherHeight, 0, 2)
-	InitExt
+	;InitExt
 	
 	SetBuffer BackBuffer()
 	
-	Font1 = LoadFont_Strict("GFX\cour.ttf", 18, 0,0,0,0, FT_DEFAULT)
+	Font1 = LoadFont_Strict("GFX\cour.ttf", 18, 0,0,0)
 	MenuWhite = LoadImage_Strict("GFX\menu\menuwhite.jpg")
 	MenuBlack = LoadImage_Strict("GFX\menu\menublack.jpg")	
 	MaskImage MenuBlack, 255,255,0
@@ -1430,20 +1430,20 @@ Function UpdateLauncher()
 		Text(20, 240 - 65, "Resolution: ")
 		
 		Local x% = 40
-		Local y% = 280 - 65
+		Local y% = 270 - 65
 		For i = 0 To (GFXModes - 1)
 			Color 0, 0, 0
 			If SelectedGFXMode = i Then Rect(x - 1, y - 1, 100, 20, False)
 			
-			Text(x, y, (GfxModeWidths(i) + "x" + GfxModeHeights(i)))
+			Text(x, y+4, (GfxModeWidths(i) + "x" + GfxModeHeights(i)))
 			If MouseOn(x - 1, y - 1, 100, 20) Then
 				Color 100, 100, 100
 				Rect(x - 1, y - 1, 100, 20, False)
 				If MouseHit1 Then SelectedGFXMode = i
-			EndIf
+			EndIf 
 			
 			y=y+20
-			If y >= 240 - 65 + (LauncherHeight - 80 - 260) Then y = 280 - 65 : x=x+100
+			If y >= 250 - 65 + (LauncherHeight - 80 - 260) Then y = 270 - 65 : x=x+100
 		Next
 		
 		;-----------------------------------------------------------------
@@ -1458,7 +1458,7 @@ Function UpdateLauncher()
 			Color 0, 0, 0
 			If SelectedGFXDriver = i Then Rect(x - 1, y - 1, 290, 20, False)
 			;text(x, y, bbGfxDriverName(i))
-			LimitText(GfxDriverName(i), x, y, 290)
+			LimitText(ConvertToUTF8(GfxDriverName(i)), x, y+4, 290)
 			If MouseOn(x - 1, y - 1, 290, 20) Then
 				Color 100, 100, 100
 				Rect(x - 1, y - 1, 290, 20, False)
@@ -1872,9 +1872,49 @@ End Function
 
 
 Function RowText(A$, X, Y, W, H, align% = 0)
+	;Display A$ starting at X,Y - no wider than W And no taller than H (all in pixels).
+	;Leading is optional extra vertical spacing in pixels
+	Local LinesShown = 0
+	Local Height = StringHeight(A$) + Leading
+	Local b$
+
+	While Len(A) > 0
+		Local space = Instr(A$, " ")
+		If space = 0 Then space = Len(A$)
+		Local temp$ = Left(A$, space)
+		Local trimmed$ = Trim(temp) ;we might ignore a final space 
+		Local extra = 0 ;we haven't ignored it yet
+		;ignore final space If doing so would make a word fit at End of Line:
+		If (StringWidth (b$ + temp$) > W) And (StringWidth (b$ + trimmed$) <= W) Then
+			temp = trimmed
+			extra = 1
+		EndIf
+
+		If StringWidth (b$ + temp$) > W Then ;too big, so Print what will fit
+			If align Then
+				Text(X + W / 2 - (StringWidth(b) / 2), LinesShown * Height + Y, b)
+			Else
+				Text(X, LinesShown * Height + Y, b)
+			EndIf			
+
+			LinesShown = LinesShown + 1
+			b$=""
+		Else ;append it To b$ (which will eventually be printed) And remove it from A$
+			b$ = b$ + temp$
+			A$ = Right(A$, Len(A$) - (Len(temp$) + extra))
+		EndIf
+
+		If ((LinesShown + 1) * Height) > H Then Exit ;the Next Line would be too tall, so leave
+	Wend
+
+	If (b$ <> "") And((LinesShown + 1) <= H) Then
+		If align Then
+			Text(X + W / 2 - (StringWidth(b) / 2), LinesShown * Height + Y, b) ;Print any remaining Text If it'll fit vertically
+		Else
+			Text(X, LinesShown * Height + Y, b) ;Print any remaining Text If it'll fit vertically
+		EndIf
+	EndIf
 	
-	TextRect(X, Y, W, H, A$, align)
-	;TextRect(X, Y, W, H, txt$, formatting=FT_LEFT, encoding=FT_UNICODE)
 	
 End Function
 

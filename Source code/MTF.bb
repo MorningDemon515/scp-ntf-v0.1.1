@@ -764,7 +764,7 @@ Function LoadModStuff()
 	MoveEntity(NTF_GasMaskBlood, 0, 0, 1.0)
 	HideEntity(NTF_GasMaskBlood)
 	
-	TextureLodBias
+	;TextureLodBias
 	
 	NTF_ZoneChangeSFX = LoadSound_Strict("SFX\Doors\DoorCheckpoint.ogg")
 	
@@ -1164,7 +1164,7 @@ Function UpdateRadio()
 				Case 0 ;randomkanava
 					;ResumeChannel(RadioCHN(0))
 					;If ChannelPlaying(RadioCHN(0)) = False Then RadioCHN(0) = PlaySound(RadioStatic)
-				Case 1 ;hälytyskanava
+				Case 1 ;hï¿½lytyskanava
 					DebugLog RadioState(1) 
 					
 					ResumeChannel(RadioCHN(1))
@@ -1321,7 +1321,7 @@ Function UpdateRadio()
 				;			If RadioCHN(Int(SelectedItem\state2)) <> 0 Then PauseChannel(RadioCHN(Int(SelectedItem\state2)))
 				;		EndIf
 				;		SelectedItem\state2 = i-2
-				;		;jos nykyistä kanavaa ollaan soitettu, laitetaan jatketaan toistoa samasta kohdasta
+				;		;jos nykyistï¿½ kanavaa ollaan soitettu, laitetaan jatketaan toistoa samasta kohdasta
 				;		If RadioCHN(SelectedItem\state2)<>0 Then ResumeChannel(RadioCHN(SelectedItem\state2))
 				;	EndIf
 				;Next
@@ -1411,11 +1411,11 @@ End Function
 
 Function UpdateMeshLOD()
 	
-	If NTF_UseLOD%
-		TextureLodBias NTF_LODValue#
-	Else
-		TextureLodBias 0.0
-	EndIf
+	;If NTF_UseLOD%
+		;TextureLodBias NTF_LODValue#
+	;Else
+		;TextureLodBias 0.0
+	;EndIf
 	
 End Function
 
@@ -1848,7 +1848,7 @@ Function SZL_SaveZone(c_zone%)
 			
 			For i=0 To 10
 				If r\Levers[i]<>0 Then
-					If EntityPitch(r\Levers[i],True) > 0 Then ;päällä
+					If EntityPitch(r\Levers[i],True) > 0 Then ;pï¿½ï¿½llï¿½
 						WriteByte(f,1)
 					Else
 						WriteByte(f,0)

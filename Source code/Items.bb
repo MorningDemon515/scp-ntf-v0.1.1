@@ -24,11 +24,11 @@ Type ItemTemplates
 	Field isAnim%
 	
 	Field scale#
-	Field bumptex%
+	;Field bumptex%
 	Field tex%, texpath$
 End Type 
 
-Function CreateItemTemplate.ItemTemplates(name$, tempname$, objpath$, invimgpath$, imgpath$, scale#, texturepath$ = "", Bump$="",invimgpath2$="",Anim%=0)
+Function CreateItemTemplate.ItemTemplates(name$, tempname$, objpath$, invimgpath$, imgpath$, scale#, texturepath$ = "", invimgpath2$="",Anim%=0)
 	Local it.ItemTemplates = New ItemTemplates, n
 	
 	
@@ -287,10 +287,10 @@ Function InitItemTemplates()
 	
 	;BoH items
 	
-	it = CreateItemTemplate("Clipboard", "clipboard", "GFX\items\clipboard.b3d", "GFX\items\INVclipboard.jpg", "", 0.003, "", "", "GFX\items\INVclipboard2.jpg", 1)
+	it = CreateItemTemplate("Clipboard", "clipboard", "GFX\items\clipboard.b3d", "GFX\items\INVclipboard.jpg", "", 0.003,"", "GFX\items\INVclipboard2.jpg", 1)
 	
 	it = CreateItemTemplate("SCP-1123", "1123", "GFX\items\HGIB_Skull1.b3d", "GFX\items\inv1123.jpg", "", 0.015) : it\sound = 0
-	it = CreateItemTemplate("SCP-178", "scp178", "GFX\items\scp178.b3d", "GFX\items\INV178.jpg", "", 0.02,"","","",1)
+	it = CreateItemTemplate("SCP-178", "scp178", "GFX\items\scp178.b3d", "GFX\items\INV178.jpg", "", 0.02,"","",1)
 	
 	it = CreateItemTemplate("Document SCP-1123", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\doc1123.jpg", 0.003) : it\sound = 0
 	it = CreateItemTemplate("Document SCP-1074", "paper", "GFX\items\paper.x", "GFX\items\INVpaper.jpg", "GFX\items\doc1074.jpg", 0.003) : it\sound = 0

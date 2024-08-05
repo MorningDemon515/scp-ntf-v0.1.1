@@ -4,7 +4,7 @@ SetBuffer BackBuffer()
 
 AppTitle "SCP-CB Map Creator"
 
-Include "StrictLoads.bb"
+Include "Source code\StrictLoads.bb"
 
 Const ROOM1% = 1, ROOM2% = 2, ROOM2C% = 3, ROOM3% = 4, ROOM4% = 5
 

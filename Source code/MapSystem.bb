@@ -2,7 +2,7 @@
 Type Materials
 	Field name$
 	Field Diff
-	Field Bump
+	;Field Bump
 	
 	Field StepSound%
 End Type
@@ -25,14 +25,14 @@ Function LoadMaterials(file$)
 			
 			mat\name = Lower(TemporaryString)
 			
-			If BumpEnabled Then
-				StrTemp = GetINIString(file, TemporaryString, "bump")
-				If StrTemp <> "" Then 
-					mat\Bump =  LoadTexture_Strict(StrTemp)
+			;If BumpEnabled Then
+				;StrTemp = GetINIString(file, TemporaryString, "bump")
+				;If StrTemp <> "" Then 
+					;mat\Bump =  LoadTexture_Strict(StrTemp)
 					
-					TextureBlend mat\Bump, FE_BUMP				
-				EndIf
-			EndIf
+					;TextureBlend mat\Bump, FE_BUMP				
+				;EndIf
+		;	EndIf
 			
 			mat\StepSound = (GetINIInt(file, TemporaryString, "stepsound")+1)
 		EndIf
@@ -209,40 +209,40 @@ Function LoadWorld(file$, rt.RoomTemplates)
 		End Select
 	Next
 	
-	If BumpEnabled Then 
+	;If BumpEnabled Then 
 		
-		For i = 1 To CountSurfaces(renderbrushes)
-			sf = GetSurface(renderbrushes,i)
-			b = GetSurfaceBrush( sf )
-			t = GetBrushTexture(b, 1)
-			texname$ =  StripPath(TextureName(t))
+		;For i = 1 To CountSurfaces(renderbrushes)
+			;sf = GetSurface(renderbrushes,i)
+			;b = GetSurfaceBrush( sf )
+			;t = GetBrushTexture(b, 1)
+			;texname$ =  StripPath(TextureName(t))
 			
-			For mat.Materials = Each Materials
-				If texname = mat\name Then
-					If mat\Bump <> 0 Then 
-						t1 = GetBrushTexture(b,0)
+			;For mat.Materials = Each Materials
+				;If texname = mat\name Then
+					;If mat\Bump <> 0 Then 
+						;t1 = GetBrushTexture(b,0)
 						
-						BrushTexture b, t1, 0, 0 ;light map
-						BrushTexture b, mat\Bump, 0, 1 ;bump
-						BrushTexture b, t, 0, 2 ;diff
+						;BrushTexture b, t1, 0, 0 ;light map
+						;BrushTexture b, mat\Bump, 0, 1 ;bump
+						;BrushTexture b, t, 0, 2 ;diff
 						
-						PaintSurface sf,b
+						;PaintSurface sf,b
 						
-						If StripPath(TextureName(t1)) <> "" Then FreeTexture t1
+						;If StripPath(TextureName(t1)) <> "" Then FreeTexture t1
 						
 						;If t1<>0 Then FreeTexture t1
 						;If t2 <> 0 Then FreeTexture t2						
-					EndIf
-					Exit
-				EndIf 
-			Next
+					;EndIf
+					;Exit
+				;EndIf 
+			;Next
 			
-			FreeTexture t
-			FreeBrush b
+			;FreeTexture t
+			;FreeBrush b
 			
-		Next
+		;Next
 		
-	EndIf
+	;EndIf
 	
 	EntityFX renderbrushes, 1
 	
@@ -277,12 +277,12 @@ Function GetTextureFromCache%(name$)
 	Return 0
 End Function
 
-Function GetBumpFromCache%(name$)
-	For tc.Materials=Each Materials
-		If tc\name = name Then Return tc\Bump
-	Next
-	Return 0
-End Function
+;Function GetBumpFromCache%(name$)
+	;For tc.Materials=Each Materials
+		;If tc\name = name Then Return tc\Bump
+	;Next
+	;Return 0
+;End Function
 
 Function GetCache.Materials(name$)
 	For tc.Materials=Each Materials
@@ -296,13 +296,13 @@ Function AddTextureToCache(texture%)
 	If tc.Materials=Null Then
 		tc.Materials=New Materials
 		tc\name=StripPath(TextureName(texture))
-		Local temp$=GetINIString("Data\materials.ini",tc\name,"bump")
-		If temp<>"" Then
-			tc\Bump=LoadTexture_Strict(temp)
-			TextureBlend tc\Bump,FE_BUMP
-		Else
-			tc\Bump=0
-		EndIf
+		;Local temp$=GetINIString("Data\materials.ini",tc\name,"bump")
+		;If temp<>"" Then
+			;tc\Bump=LoadTexture_Strict(temp)
+			;TextureBlend tc\Bump,FE_BUMP
+		;Else
+			;tc\Bump=0
+		;EndIf
 		tc\Diff=0
 	EndIf
 	If tc\Diff=0 Then tc\Diff=texture
@@ -311,7 +311,7 @@ End Function
 Function ClearTextureCache()
 	For tc.Materials=Each Materials
 		If tc\Diff<>0 Then FreeTexture tc\Diff
-		If tc\Bump<>0 Then FreeTexture tc\Bump
+		;If tc\Bump<>0 Then FreeTexture tc\Bump
 		Delete tc
 	Next
 End Function
@@ -319,8 +319,8 @@ End Function
 Function FreeTextureCache()
 	For tc.Materials=Each Materials
 		If tc\Diff<>0 Then FreeTexture tc\Diff
-		If tc\Bump<>0 Then FreeTexture tc\Bump
-		tc\Diff = 0 : tc\Bump = 0
+		;If tc\Bump<>0 Then FreeTexture tc\Bump
+		tc\Diff = 0; : tc\Bump = 0
 	Next
 End Function
 
@@ -535,36 +535,36 @@ Function LoadRMesh(file$,rt.RoomTemplates)
 		
 	Next
 	
-	If BumpEnabled Then
-		For i = 2 To CountSurfaces(Opaque)
-			surf = GetSurface(Opaque,i)
-			brush = GetSurfaceBrush(surf)
-			tex[0] = GetBrushTexture(brush,1)
-			temp1s$ =  StripPath(TextureName(tex[0]))
+	;If BumpEnabled Then
+		;For i = 2 To CountSurfaces(Opaque)
+			;surf = GetSurface(Opaque,i)
+			;brush = GetSurfaceBrush(surf)
+			;tex[0] = GetBrushTexture(brush,1)
+			;temp1s$ =  StripPath(TextureName(tex[0]))
 			
-			If temp1s$<>0 Then 
-				mat.Materials=GetCache(temp1s)
-				If mat<>Null Then
-					If mat\Bump<>0 Then
-						tex[1] = GetBrushTexture(brush,0)
+			;If temp1s$<>0 Then 
+				;mat.Materials=GetCache(temp1s)
+				;If mat<>Null Then
+					;If mat\Bump<>0 Then
+						;tex[1] = GetBrushTexture(brush,0)
 						
-						BrushTexture brush, tex[1], 0, 1
-						BrushTexture brush, mat\Bump, 0, 0
-						BrushTexture brush, tex[0], 0, 2
+						;BrushTexture brush, tex[1], 0, 1
+						;BrushTexture brush, mat\Bump, 0, 0
+						;BrushTexture brush, tex[0], 0, 2
 						
-						PaintSurface surf,brush
+						;PaintSurface surf,brush
 						
-						If tex[1]<>0 Then FreeTexture tex[1] : tex[1]=0
-					EndIf
-				EndIf
+						;If tex[1]<>0 Then FreeTexture tex[1] : tex[1]=0
+					;EndIf
+				;EndIf
 				
-				If tex[0]<>0 Then FreeTexture tex[0] : tex[0]=0
-			EndIf
+				;If tex[0]<>0 Then FreeTexture tex[0] : tex[0]=0
+			;EndIf
 			
-			If brush<>0 Then FreeBrush brush : brush=0
-		Next
+			;If brush<>0 Then FreeBrush brush : brush=0
+		;Next
 		
-	EndIf
+	;EndIf
 	
 	Local hiddenMesh%
 	hiddenMesh=CreateMesh()
@@ -856,7 +856,7 @@ Const max_deviation_distance% = 3
 Const return_chance% = 27
 Const center = 5 ;(gridsize-1) / 2
 
-Include "Drawportals.bb"
+Include "Source code\Drawportals.bb"
 
 Type Forest
 	Field TileMesh%[6]
@@ -1100,9 +1100,9 @@ Function PlaceForest(fr.Forest,x#,y#,z#,r.Rooms)
 	
 	Local hmap[ROOM4], mask[ROOM4]
 	Local GroundTexture = LoadTexture_Strict("GFX\map\forest\forestfloor.jpg")
-	TextureBlend GroundTexture, FE_ALPHACURRENT
+	;TextureBlend GroundTexture, FE_ALPHACURRENT
 	Local PathTexture = LoadTexture_Strict("GFX\map\forest\forestpath.jpg")
-	TextureBlend PathTexture, FE_ALPHACURRENT
+	;TextureBlend PathTexture, FE_ALPHACURRENT
 	
 	hmap[ROOM1]=LoadImage_Strict("GFX\map\forest\forest1h.png")
 	mask[ROOM1]=LoadTexture_Strict("GFX\map\forest\forest1h_mask.png",1+2)
@@ -1120,7 +1120,7 @@ Function PlaceForest(fr.Forest,x#,y#,z#,r.Rooms)
 	mask[ROOM4]=LoadTexture_Strict("GFX\map\forest\forest4h_mask.png",1+2)
 	
 	For i = ROOM1 To ROOM4
-		TextureBlend mask[i], FE_ALPHAMODULATE
+		;TextureBlend mask[i], FE_ALPHAMODULATE
 		
 		fr\TileMesh[i]=load_terrain(hmap[i],0.03,GroundTexture,PathTexture,mask[i])
 	Next
@@ -1684,7 +1684,7 @@ Function FillRoom(r.Rooms)
 	Local it.Items, i%
 	Local xtemp%, ytemp%, ztemp%
 	
-	Local t1, Bump	
+	;Local t1, Bump	
 	
 	Select r\RoomTemplate\Name
 		Case "gateaintro"
@@ -2248,7 +2248,7 @@ Function FillRoom(r.Rooms)
 			PositionEntity(r\Objects[3], r\x+1216.0*RoomScale, 0, r\z+2112.0*RoomScale, True)
 			EntityParent r\Objects[3], r\obj
 			
-			;sillan loppupää
+			;sillan loppupï¿½ï¿½
 			r\Objects[4]=CreatePivot()
 			PositionEntity(r\Objects[4], r\x, 96.0*RoomScale, r\z+6400.0*RoomScale, True)
 			EntityParent r\Objects[4], r\obj		
@@ -2277,7 +2277,7 @@ Function FillRoom(r.Rooms)
 			r\Objects[9]=CreatePivot()
 			PositionEntity(r\Objects[9], r\x+2624.0*RoomScale, 992.0*RoomScale, r\z+6157.0*RoomScale, True)
 			EntityParent r\Objects[9], r\obj	
-			;objects[10] = valopyssyn yläosa
+			;objects[10] = valopyssyn ylï¿½osa
 			
 			;tunnelin loppu
 			r\Objects[11]=CreatePivot()
@@ -2334,7 +2334,7 @@ Function FillRoom(r.Rooms)
 			PositionEntity(r\RoomDoors[4]\buttons[0], r\x, 7.0, r\z, True)
 			
 			
-			;käytävän takaosa
+			;kï¿½ytï¿½vï¿½n takaosa
 			r\Objects[3] = CreatePivot()
 			PositionEntity(r\Objects[3], r\x-7680.0*RoomScale, 10992.0*RoomScale, r\z-27048.0*RoomScale, True)
 			EntityParent r\Objects[3], r\obj
@@ -2390,7 +2390,7 @@ Function FillRoom(r.Rooms)
 			PositionEntity(r\Objects[11], r\x+2816.0*RoomScale, 11024.0*RoomScale, r\z-2816.0*RoomScale, True)
 			EntityParent r\Objects[11], r\obj
 			
-			;r\Objects[12] = 682:n käsi
+			;r\Objects[12] = 682:n kï¿½si
 			
 			;"valvomon" takaovi
 			r\RoomDoors[5] = CreateDoor(0, r\x+3248.0*RoomScale, 9856.0*RoomScale, r\z+6400.0*RoomScale, 0, r, False, False, 0, "ABCD")
@@ -2751,10 +2751,10 @@ Function FillRoom(r.Rooms)
 			PositionEntity(d\buttons[0], EntityX(d\buttons[0],True), EntityY(d\buttons[0],True), r\z + 608.0 * RoomScale,True)
 			PositionEntity(d\buttons[1], EntityX(d\buttons[1],True), EntityY(d\buttons[1],True), r\z + 608.0 * RoomScale,True)
 			
-			;yläkerran hissin ovi
+			;ylï¿½kerran hissin ovi
 			r\RoomDoors[0] = CreateDoor(r\zone, r\x + 1192.0 * RoomScale, 0.0, r\z, 90, r, True)
 			r\RoomDoors[0]\AutoClose = False : r\RoomDoors[0]\open = True
-			;yläkerran hissi
+			;ylï¿½kerran hissi
 			r\Objects[4] = CreatePivot()
 			PositionEntity(r\Objects[4], r\x + 1496.0 * RoomScale, 240.0 * RoomScale, r\z)
 			EntityParent(r\Objects[4], r\obj)
@@ -4090,35 +4090,6 @@ Function FillRoom(r.Rooms)
 			EntityPickMode r\Objects[6], 3
 			PositionEntity(r\Objects[6],r\x+784.0*RoomScale,-980.0*RoomScale,r\z+720.0*RoomScale,True)
 			
-			If BumpEnabled Then 
-				
-				For i = 1 To CountSurfaces(r\Objects[6])
-					sf = GetSurface(r\Objects[6],i)
-					b = GetSurfaceBrush( sf )
-					t = GetBrushTexture(b,1)
-					texname$ =  StripPath(TextureName(t))
-					
-					mat.Materials=GetCache(texname)
-					If mat<>Null Then
-						If mat\Bump<>0 Then
-							t1 = GetBrushTexture(b,0)
-							
-							BrushTexture b, t1, 0, 0	
-							BrushTexture b, mat\Bump, 0, 1
-							BrushTexture b, t, 0, 2					
-							
-							PaintSurface sf,b
-							
-							If t1<>0 Then FreeTexture t1 : t1=0
-						EndIf
-					EndIf
-					
-					If t<>0 Then FreeTexture t : t=0
-					If b<>0 Then FreeBrush b : b=0
-				Next
-				
-			EndIf
-			
 			EntityParent(r\Objects[6], r\obj)
 			
 			For n = 0 To 2 Step 2
@@ -4417,34 +4388,6 @@ Function FillRoom(r.Rooms)
 					Case 4
 						entity = r\Objects[11]							
 				End Select 
-				
-				If BumpEnabled Then 
-					
-					For i = 1 To CountSurfaces(entity)
-						sf = GetSurface(entity,i)
-						b = GetSurfaceBrush( sf )
-						t = GetBrushTexture(b,1)
-						texname$ =  StripPath(TextureName(t))
-						mat.Materials=GetCache(texname)
-						If mat<>Null Then
-							If mat\Bump<>0 Then
-								t1 = GetBrushTexture(b,0)
-								
-								BrushTexture b, t1, 0, 0	
-								BrushTexture b, mat\Bump, 0, 1
-								BrushTexture b, t, 0, 2					
-								
-								PaintSurface sf,b
-								
-								If t1<>0 Then FreeTexture t1 : t1=0
-							EndIf
-						EndIf
-						
-						If t<>0 Then FreeTexture t : t=0
-						If b<>0 Then FreeBrush b : b=0
-					Next
-					
-				EndIf
 				
 			Next
 			
@@ -4980,9 +4923,9 @@ Function FindPath(n.NPCs, x#, y#, z#)
 	
 	Local CurrX, CurrZ
 	
-	;pathstatus = 0, ei ole etsitty reittiä
-	;pathstatus = 1, reitti löydetty
-	;pathstatus = 2, reittiä ei ole olemassa	
+	;pathstatus = 0, ei ole etsitty reittiï¿½
+	;pathstatus = 1, reitti lï¿½ydetty
+	;pathstatus = 2, reittiï¿½ ei ole olemassa	
 	
 	For w.WayPoints = Each WayPoints 
 		w\state = 0
@@ -5003,7 +4946,7 @@ Function FindPath(n.NPCs, x#, y#, z#)
 	temp = CreatePivot()
 	PositionEntity(temp, EntityX(n\Collider,True), EntityY(n\Collider,True)+0.15, EntityZ(n\Collider,True))
 	
-	;käytetään aloituspisteenä waypointia, joka on lähimpänä loppupistettä ja joka on näkyvissä
+	;kï¿½ytetï¿½ï¿½n aloituspisteenï¿½ waypointia, joka on lï¿½himpï¿½nï¿½ loppupistettï¿½ ja joka on nï¿½kyvissï¿½
 	dist = 100.0
 	For w.WayPoints = Each WayPoints
 		xtemp = Abs(EntityX(w\obj,True)-EntityX(temp,True))
@@ -5057,7 +5000,7 @@ Function FindPath(n.NPCs, x#, y#, z#)
 	EndIf
 	If EndPoint = Null Then Return 2
 	
-	;aloitus- ja lopetuspisteet löydetty, aletaan etsiä reittiä
+	;aloitus- ja lopetuspisteet lï¿½ydetty, aletaan etsiï¿½ reittiï¿½
 	
 	Repeat 
 		
@@ -5108,7 +5051,7 @@ Function FindPath(n.NPCs, x#, y#, z#)
 					
 				EndIf
 			Next
-		Else ;open listiltä ei löytynyt mitään
+		Else ;open listiltï¿½ ei lï¿½ytynyt mitï¿½ï¿½n
 			If EndPoint\state > 0 Then 
 				StartPoint\parent = Null
 				EndPoint\state = 2
@@ -5159,8 +5102,8 @@ Function FindPath(n.NPCs, x#, y#, z#)
 		
 	Else
 		
-		DebugLog "FUNCTION FindPath() - reittiä ei löytynyt"
-		Return 2 ;reittiä määränpäähän ei löytynyt
+		DebugLog "FUNCTION FindPath() - reittiï¿½ ei lï¿½ytynyt"
+		Return 2 ;reittiï¿½ mï¿½ï¿½rï¿½npï¿½ï¿½hï¿½n ei lï¿½ytynyt
 		
 	EndIf
 	
@@ -5571,9 +5514,9 @@ Function UpdateLever(obj, locked=False)
 					EndIf
 				EndIf 
 				
-				If EntityPitch(obj,True) > 75 Then ;päällä
+				If EntityPitch(obj,True) > 75 Then ;pï¿½ï¿½llï¿½
 					If prevpitch =< 75 Then PlaySound2(LeverSFX, Camera, obj, 1.0)
-				ElseIf EntityPitch(obj,True) < -75 ;pois päältä
+				ElseIf EntityPitch(obj,True) < -75 ;pois pï¿½ï¿½ltï¿½
 					If prevpitch => -75 Then PlaySound2(LeverSFX, Camera, obj, 1.0)	
 				EndIf						
 			EndIf
@@ -5590,9 +5533,9 @@ Function UpdateLever(obj, locked=False)
 		
 	EndIf
 	
-	If EntityPitch(obj,True) > 0 Then ;päällä
+	If EntityPitch(obj,True) > 0 Then ;pï¿½ï¿½llï¿½
 		Return True
-	Else ;pois päältä
+	Else ;pois pï¿½ï¿½ltï¿½
 		Return False
 	EndIf	
 	
@@ -5645,9 +5588,9 @@ Function UpdateElevators#(State#, door1.Doors, door2.Doors, room1, room2, event.
 	If door1\open = False And door2\open = False Then
 		door1\locked = True 
 		door2\locked = True 
-		If State < 0 Then ;ylhäältä alas
+		If State < 0 Then ;ylhï¿½ï¿½ltï¿½ alas
 			State = State - FPSfactor
-			;pelaaja hissin sisällä
+			;pelaaja hissin sisï¿½llï¿½
 			If Abs(EntityX(Collider)-EntityX(room1,True))<280.0*RoomScale Then
 				If Abs(EntityZ(Collider)-EntityZ(room1,True))<280.0*RoomScale Then
 					If Abs(EntityY(Collider)-EntityY(room1,True))<280.0*RoomScale Then
@@ -5684,9 +5627,9 @@ Function UpdateElevators#(State#, door1.Doors, door2.Doors, room1, room2, event.
 				
 				PlaySound2(ElevatorBeepSFX, Camera, room1, 4.0)
 			EndIf
-		Else ;alhaalta ylös
+		Else ;alhaalta ylï¿½s
 			State = State + FPSfactor
-			;pelaaja hissin sisällä
+			;pelaaja hissin sisï¿½llï¿½
 			If Abs(EntityX(Collider)-EntityX(room2,True))<280.0*RoomScale Then
 				If Abs(EntityZ(Collider)-EntityZ(room2,True))<280.0*RoomScale Then
 					If Abs(EntityY(Collider)-EntityY(room2,True))<280.0*RoomScale Then
@@ -5710,7 +5653,7 @@ Function UpdateElevators#(State#, door1.Doors, door2.Doors, room1, room2, event.
 				
 				UseDoor(door1,False)
 				
-				;pelaaja hissin sisällä, siirretään
+				;pelaaja hissin sisï¿½llï¿½, siirretï¿½ï¿½n
 				If inside Then	
 					x# = Max(Min((EntityX(Collider)-EntityX(room2,True)),280*RoomScale-0.17),-280*RoomScale+0.17)
 					z# = Max(Min((EntityZ(Collider)-EntityZ(room2,True)),280*RoomScale-0.17),-280*RoomScale+0.17)
@@ -5760,9 +5703,9 @@ Function UpdateElevators2#(State#, door1.Doors, door2.Doors, room1, room2, event
 	If door1\open = False And door2\open = False Then
 		door1\locked = True 
 		door2\locked = True 
-		If State < 0 Then ;ylhäält?alas
+		If State < 0 Then ;ylhï¿½ï¿½lt?alas
 			State = State - FPSfactor
-			;pelaaja hissin sisäll?
+			;pelaaja hissin sisï¿½ll?
 			If Abs(EntityX(Collider)-EntityX(room1,True))<280.0*RoomScale Then
 				If Abs(EntityZ(Collider)-EntityZ(room1,True))<280.0*RoomScale Then	
 					If Abs(EntityY(Collider)-EntityY(room1,True))<280.0*RoomScale Then	
@@ -5816,9 +5759,9 @@ Function UpdateElevators2#(State#, door1.Doors, door2.Doors, room1, room2, event
 				PlaySound2(ElevatorBeepSFX, Camera, room1, 4.0)	
 				;PlaySound(ElevatorBeepSFX)	
 			EndIf
-		Else ;alhaalta ylös
+		Else ;alhaalta ylï¿½s
 			State = State + FPSfactor
-			;pelaaja hissin sisäll?
+			;pelaaja hissin sisï¿½ll?
 			If Abs(EntityX(Collider)-EntityX(room2,True))<280.0*RoomScale Then
 				If Abs(EntityZ(Collider)-EntityZ(room2,True))<280.0*RoomScale Then	
 					If Abs(EntityY(Collider)-EntityY(room2,True))<280.0*RoomScale Then
@@ -5842,7 +5785,7 @@ Function UpdateElevators2#(State#, door1.Doors, door2.Doors, room1, room2, event
 				
 				UseDoor(door1,True)	
 				
-				;pelaaja hissin sisäll? siirretään
+				;pelaaja hissin sisï¿½ll? siirretï¿½ï¿½n
 				If inside Then	
 					
 					dist# = Distance(EntityX(Collider,True),EntityZ(Collider,True),EntityX(room2,True),EntityZ(room2,True))
@@ -6368,7 +6311,7 @@ Function CreateMap()
 				
 				temp = Min(MapTemp(x + 1, y),1) + Min(MapTemp(x - 1, y),1) + Min(MapTemp(x, y + 1),1) + Min(MapTemp(x, y - 1),1)
 				
-				Select temp ;viereisissä ruuduissa olevien huoneiden määrä
+				Select temp ;viereisissï¿½ ruuduissa olevien huoneiden mï¿½ï¿½rï¿½
 					Case 1
 						If MapRoomID(ROOM1) < MaxRooms And MapName(x,y) = "" Then
 							If CheckRoomOverlap(MapRoom(ROOM1, MapRoomID(ROOM1)), x, y) Then
@@ -6833,39 +6776,58 @@ Function load_terrain(hmap,yscale#=0.7,t1%,t2%,mask%)
 	Next
 			
 	; position the terrain to center 0,0,0
+	Local mesh2% = CopyMesh(mesh,mesh)
+	Local surf2% = GetSurface(mesh2,1)
 	PositionMesh mesh, -x/2.0,0,-y/2.0
-	
+	PositionMesh mesh2, -x/2.0,0.01,-y/2.0
 	; alter vertice height to match the heightmap red channel
 	LockBuffer ImageBuffer(hmap)
+	LockBuffer TextureBuffer(mask)
 	;SetBuffer 
 	For lx = 0 To x
 		For ly = 0 To y
+		    ;using vertex alpha and two meshes instead of FE_ALPHAWHATEVER
+			;it doesn't look perfect but it does the job
+			;you might get better results by downscaling the mask to the same size as the heightmap
+			Local maskX# = Min(lx*Float(TextureWidth(mask))/Float(ImageWidth(hmap)),TextureWidth(mask)-1)
+			Local maskY# = TextureHeight(mask)-Min(ly*Float(TextureHeight(mask))/Float(ImageHeight(hmap)),TextureHeight(mask)-1)
 			RGB1=ReadPixelFast(Min(lx,x-1),y-Min(ly,y-1),ImageBuffer(hmap))
 			r=(RGB1 And $FF0000)Shr 16 ;separate out the red
+			Local alpha#=(((ReadPixelFast(Max(maskX-5,5),Max(maskY-5,5),TextureBuffer(mask)) And $FF000000) Shr 24)/$FF)
+			alpha#=alpha+(((ReadPixelFast(Min(maskX+5,TextureWidth(mask)-5),Min(maskY+5,TextureHeight(mask)-5),TextureBuffer(mask)) And $FF000000) Shr 24)/$FF)
+			alpha#=alpha+(((ReadPixelFast(Max(maskX-5,5),Min(maskY+5,TextureHeight(mask)-5),TextureBuffer(mask)) And $FF000000) Shr 24)/$FF)
+			alpha#=alpha+(((ReadPixelFast(Min(maskX+5,TextureWidth(mask)-5),Max(maskY-5,5),TextureBuffer(mask)) And $FF000000) Shr 24)/$FF)
+			alpha#=alpha*0.25
+			alpha#=Sqr(alpha)
 			
 			index = lx + ((x+1)*ly)
 			VertexCoords surf, index , VertexX(surf,index), r*yscale,VertexZ(surf,index)
+			VertexCoords surf2, index , VertexX(surf2,index), r*yscale,VertexZ(surf2,index)
+			VertexColor surf2, index, 255.0,255.0,255.0,alpha
 			; set the terrain texture coordinates
 			VertexTexCoords surf,index,lx,-ly 
 			
 		Next
 	Next
+	UnlockBuffer TextureBuffer(mask)
 	UnlockBuffer ImageBuffer(hmap)
 	
 	UpdateNormals mesh
+	UpdateNormals mesh2
 	
 	EntityTexture mesh,t1,0,0
-	EntityTexture mesh,mask,0,1
-	EntityTexture mesh,t2,0,2
+	;EntityTexture mesh,mask,0,1
+	EntityTexture mesh2,t2,0,0
 	
 	EntityFX mesh, 1
+	EntityFX mesh2, 1+2+32
 	
 	Return mesh
 End Function
 
 
 
-Include "Skybox.bb"
+Include "Source code\Skybox.bb"
 
 
 ;~IDEal Editor Parameters:

@@ -223,7 +223,7 @@ Function LoadBrush_Strict(file$,flags,u#=1.0,v#=1.0)
 End Function 
 
 ;Modified for Fasttext
-Function LoadFont_Strict(file$="Tahoma", height=13, bold=0, italic=0, underline=0, angle#=0, smooth=FT_ANTIALIASED, encoding=FT_ASCII)
+Function LoadFont_Strict(file$="Tahoma", height=13, bold=0, italic=0, underline=0, angle#=0)
 	Local fontReplace%=False, fontReplace2%=False
 	
 	If FileType(file$)<>1 Then
@@ -231,8 +231,8 @@ Function LoadFont_Strict(file$="Tahoma", height=13, bold=0, italic=0, underline=
 		fontReplace2% = True
 	EndIf
 	If (Not fontReplace%)
-		tmp = LoadFont(file, height, bold, italic, underline, angle, smooth, encoding)  
-		If tmp = 0 Then tmp = LoadFont(file, height, bold, italic, underline, angle, smooth, encoding)
+		tmp = LoadFont(file, height)  
+		If tmp = 0 Then tmp = LoadFont(file, height)
 	Else
 		CreateConsoleMsg("Font: " + file$ + " not found.")
 		ConsoleInput = ""
@@ -242,7 +242,7 @@ Function LoadFont_Strict(file$="Tahoma", height=13, bold=0, italic=0, underline=
 	EndIf
 	If tmp = 0 Then fontReplace% = True
 	If fontReplace%
-		tmp = LoadFont("Arial", height, bold, italic, underline, angle, smooth, encoding)
+		tmp = LoadFont("Arial", height)
 		If (Not fontReplace2%)
 			CreateConsoleMsg("Failed to load Font: " + file$)
 			ConsoleInput = ""
@@ -324,4 +324,71 @@ Function CopyTexture(texture, flags = 1)
 	UnlockBuffer tb
 	UnlockBuffer txb
 	Return tex
+End Function
+
+Type Stream
+	Field sfx%
+	Field chn%
+End Type
+
+Const Mode% = 2
+Const TwoD% = 8192
+
+Function StreamSound_Strict(file$,volume#=1.0,custommode=Mode)
+	If FileType(file$)<>1
+		CreateConsoleMsg("Sound " + Chr(34) + file$ + Chr(34) + " not found.")
+		If ConsoleOpening
+			ConsoleOpen = True
+		EndIf
+		Return 0
+	EndIf
+	
+	Local st.Stream = New Stream
+	
+	st\chn = PlayMusic(File, CustomMode + TwoD)
+	
+	If st\chn = -1
+		CreateConsoleMsg("Failed to stream Sound (returned -1): " + Chr(34) + file$ + Chr(34))
+		If ConsoleOpening
+			ConsoleOpen = True
+		EndIf
+		Return -1
+	EndIf
+	
+	ChannelVolume(st\chn, Volume * 1.0)
+	
+	Return Handle(st)
+End Function
+
+Function IsStreamPlaying_Strict(streamHandle%)
+	Local st.Stream = Object.Stream(streamHandle)
+	
+	If st = Null
+		;CreateConsoleMsg("Failed to find stream Sound: Unknown Stream")
+		Return
+	EndIf
+	If st\chn=0 Lor st\chn=-1
+		CreateConsoleMsg("Failed to find stream Sound: Return value "+st\chn)
+		Return
+	EndIf
+	
+	Return(ChannelPlaying(st\CHN))
+	
+End Function
+
+Function StopStream_Strict(streamHandle%)
+	Local st.Stream = Object.Stream(streamHandle)
+	
+    If st = Null Then Return
+
+	If st\chn=0 Lor st\chn=-1
+
+		CreateConsoleMsg("Failed to stop stream Sound: Return value "+st\chn)
+		Return
+	EndIf
+	
+    StopChannel(st\CHN)
+
+	Delete st
+	
 End Function

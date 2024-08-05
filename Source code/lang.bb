@@ -57,73 +57,73 @@ Function LoadLanguages()
 		TempString$ = GetINIString("NineTailedFoxMod\Languages\"+LANG$(SelectedLang%),"global","font1","")
 		If TempString$ <> ""
 			If FileType("NineTailedFoxMod\Languages\"+TempString$)<>1
-				Font1% = LoadFont_Strict("GFX\cour.ttf", Int(18 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font1% = LoadFont_Strict("GFX\cour.ttf", Int(18 * (GraphicHeight / 1024.0)), 0,0,0)
 			Else
-				Font1% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(18 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font1% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(18 * (GraphicHeight / 1024.0)), 0,0,0)
 				DebugLog "Custom Font: "+TempString$
 			EndIf
 		Else
-			Font1% = LoadFont_Strict("GFX\cour.ttf", Int(18 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+			Font1% = LoadFont_Strict("GFX\cour.ttf", Int(18 * (GraphicHeight / 1024.0)), 0,0,0)
 		EndIf
 		
 		TempString$ = GetINIString("NineTailedFoxMod\Languages\"+LANG$(SelectedLang%),"global","font2","")
 		If TempString$ <> ""
 			If FileType("NineTailedFoxMod\Languages\"+TempString$)<>1
-				Font2% = LoadFont_Strict("NineTailedFoxMod\GFX\Capture it.ttf", Int(58* (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font2% = LoadFont_Strict("NineTailedFoxMod\GFX\Capture it.ttf", Int(58* (GraphicHeight / 1024.0)), 0,0,0)
 			Else
-				Font2% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(58* (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font2% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(58* (GraphicHeight / 1024.0)), 0,0,0)
 				DebugLog "Custom Font: "+TempString$
 			EndIf
 		Else
-			Font2% = LoadFont_Strict("NineTailedFoxMod\GFX\Capture it.ttf", Int(58* (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+			Font2% = LoadFont_Strict("NineTailedFoxMod\GFX\Capture it.ttf", Int(58* (GraphicHeight / 1024.0)), 0,0,0)
 		EndIf
 		
 		TempString$ = GetINIString("NineTailedFoxMod\Languages\"+LANG$(SelectedLang%),"global","font3","")
 		If TempString$ <> ""
 			If FileType("NineTailedFoxMod\Languages\"+TempString$)<>1
-				Font3% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font3% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
 			Else
-				Font3% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(22 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font3% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
 				DebugLog "Custom Font: "+TempString$
 			EndIf
 		Else
-			Font3% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+			Font3% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
 		EndIf
 		
 		TempString$ = GetINIString("NineTailedFoxMod\Languages\"+LANG$(SelectedLang%),"global","font4","")
 		If TempString$ <> ""
 			If FileType("NineTailedFoxMod\Languages\"+TempString$)<>1
-				Font4% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font4% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0)
 			Else
-				Font4% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(60 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font4% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(60 * (GraphicHeight / 1024.0)), 0,0,0)
 				DebugLog "Custom Font: "+TempString$
 			EndIf
 		Else
-			Font4% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+			Font4% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0)
 		EndIf
 		
 		TempString$ = GetINIString("NineTailedFoxMod\Languages\"+LANG$(SelectedLang%),"global","font5","")
 		If TempString$ <> ""
 			If FileType("NineTailedFoxMod\Languages\"+TempString$)<>1
-				Font5% = LoadFont_Strict("GFX\courbd.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font5% = LoadFont_Strict("GFX\courbd.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
 			Else
-				Font5% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(22 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font5% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
 				DebugLog "Custom Font: "+TempString$
 			EndIf
 		Else
-			Font5% = LoadFont_Strict("GFX\courbd.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+			Font5% = LoadFont_Strict("GFX\courbd.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
 		EndIf
 		
 		TempString$ = GetINIString("NineTailedFoxMod\Languages\"+LANG$(SelectedLang%),"global","font6","")
 		If TempString$ <> ""
 			If FileType("NineTailedFoxMod\Languages\"+TempString$)<>1
-				Font6% = LoadFont_Strict("GFX\cour.ttf", Int(34 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font6% = LoadFont_Strict("GFX\cour.ttf", Int(34 * (GraphicHeight / 1024.0)), 0,0,0)
 			Else
-				Font6% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(34 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font6% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(34 * (GraphicHeight / 1024.0)), 0,0,0)
 				DebugLog "Custom Font: "+TempString$
 			EndIf
 		Else
-			Font6% = LoadFont_Strict("GFX\cour.ttf", Int(34 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+			Font6% = LoadFont_Strict("GFX\cour.ttf", Int(34 * (GraphicHeight / 1024.0)), 0,0,0)
 		EndIf
 	EndIf
 	
@@ -182,73 +182,73 @@ Function Lang_Change(newlang%)
 		TempString$ = GetINIString("NineTailedFoxMod\Languages\"+LANG$(SelectedLang%),"global","font1","")
 		If TempString$ <> ""
 			If FileType("NineTailedFoxMod\Languages\"+TempString$)<>1
-				Font1% = LoadFont_Strict("GFX\cour.ttf", Int(18 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font1% = LoadFont_Strict("GFX\cour.ttf", Int(18 * (GraphicHeight / 1024.0)), 0,0,0)
 			Else
-				Font1% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(18 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font1% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(18 * (GraphicHeight / 1024.0)), 0,0,0)
 				DebugLog "Custom Font: "+TempString$
 			EndIf
 		Else
-			Font1% = LoadFont_Strict("GFX\cour.ttf", Int(18 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+			Font1% = LoadFont_Strict("GFX\cour.ttf", Int(18 * (GraphicHeight / 1024.0)), 0,0,0)
 		EndIf
 		
 		TempString$ = GetINIString("NineTailedFoxMod\Languages\"+LANG$(SelectedLang%),"global","font2","")
 		If TempString$ <> ""
 			If FileType("NineTailedFoxMod\Languages\"+TempString$)<>1
-				Font2% = LoadFont_Strict("NineTailedFoxMod\GFX\Capture it.ttf", Int(58* (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font2% = LoadFont_Strict("NineTailedFoxMod\GFX\Capture it.ttf", Int(58* (GraphicHeight / 1024.0)), 0,0,0)
 			Else
-				Font2% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(58* (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font2% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(58* (GraphicHeight / 1024.0)), 0,0,0)
 				DebugLog "Custom Font: "+TempString$
 			EndIf
 		Else
-			Font2% = LoadFont_Strict("NineTailedFoxMod\GFX\Capture it.ttf", Int(58* (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+			Font2% = LoadFont_Strict("NineTailedFoxMod\GFX\Capture it.ttf", Int(58* (GraphicHeight / 1024.0)), 0,0,0)
 		EndIf
 		
 		TempString$ = GetINIString("NineTailedFoxMod\Languages\"+LANG$(SelectedLang%),"global","font3","")
 		If TempString$ <> ""
 			If FileType("NineTailedFoxMod\Languages\"+TempString$)<>1
-				Font3% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font3% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
 			Else
-				Font3% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(22 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font3% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
 				DebugLog "Custom Font: "+TempString$
 			EndIf
 		Else
-			Font3% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+			Font3% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
 		EndIf
 		
 		TempString$ = GetINIString("NineTailedFoxMod\Languages\"+LANG$(SelectedLang%),"global","font4","")
 		If TempString$ <> ""
 			If FileType("NineTailedFoxMod\Languages\"+TempString$)<>1
-				Font4% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font4% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0)
 			Else
-				Font4% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(60 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font4% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(60 * (GraphicHeight / 1024.0)), 0,0,0)
 				DebugLog "Custom Font: "+TempString$
 			EndIf
 		Else
-			Font4% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+			Font4% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0)
 		EndIf
 		
 		TempString$ = GetINIString("NineTailedFoxMod\Languages\"+LANG$(SelectedLang%),"global","font5","")
 		If TempString$ <> ""
 			If FileType("NineTailedFoxMod\Languages\"+TempString$)<>1
-				Font5% = LoadFont_Strict("GFX\courbd.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font5% = LoadFont_Strict("GFX\courbd.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
 			Else
-				Font5% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(22 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font5% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
 				DebugLog "Custom Font: "+TempString$
 			EndIf
 		Else
-			Font5% = LoadFont_Strict("GFX\courbd.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+			Font5% = LoadFont_Strict("GFX\courbd.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
 		EndIf
 		
 		TempString$ = GetINIString("NineTailedFoxMod\Languages\"+LANG$(SelectedLang%),"global","font6","")
 		If TempString$ <> ""
 			If FileType("NineTailedFoxMod\Languages\"+TempString$)<>1
-				Font6% = LoadFont_Strict("GFX\cour.ttf", Int(34 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font6% = LoadFont_Strict("GFX\cour.ttf", Int(34 * (GraphicHeight / 1024.0)), 0,0,0)
 			Else
-				Font6% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(34 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+				Font6% = LoadFont_Strict("NineTailedFoxMod\Languages\"+TempString$, Int(34 * (GraphicHeight / 1024.0)), 0,0,0)
 				DebugLog "Custom Font: "+TempString$
 			EndIf
 		Else
-			Font6% = LoadFont_Strict("GFX\cour.ttf", Int(34 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+			Font6% = LoadFont_Strict("GFX\cour.ttf", Int(34 * (GraphicHeight / 1024.0)), 0,0,0)
 		EndIf
 	Else
 		FreeFont Font1%
@@ -258,12 +258,12 @@ Function Lang_Change(newlang%)
 		FreeFont Font5%
 		FreeFont Font6%
 		
-		Font1% = LoadFont_Strict("GFX\cour.ttf", Int(18 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
-		Font2% = LoadFont_Strict("NineTailedFoxMod\GFX\Capture it.ttf", Int(58* (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
-		Font3% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
-		Font4% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
-		Font5% = LoadFont_Strict("GFX\courbd.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
-		Font6% = LoadFont_Strict("GFX\cour.ttf", Int(34 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+		Font1% = LoadFont_Strict("GFX\cour.ttf", Int(18 * (GraphicHeight / 1024.0)), 0,0,0)
+		Font2% = LoadFont_Strict("NineTailedFoxMod\GFX\Capture it.ttf", Int(58* (GraphicHeight / 1024.0)), 0,0,0)
+		Font3% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
+		Font4% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0)
+		Font5% = LoadFont_Strict("GFX\courbd.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
+		Font6% = LoadFont_Strict("GFX\cour.ttf", Int(34 * (GraphicHeight / 1024.0)), 0,0,0)
 	EndIf
 	
 	difficulties(SAFE)\name = Lang_Replace$("Safe")

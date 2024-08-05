@@ -1,18 +1,14 @@
+;Compile the Game.bb file in the directory,not Main.bb!
 
 Local InitErrorStr$ = ""
-If FileSize("FastExt.dll")=0 Then InitErrorStr=InitErrorStr+ "FastExt.dll"+Chr(13)+Chr(10)
-If FileSize("FastText.dll")=0 Then InitErrorStr=InitErrorStr+ "FastText.dll"+Chr(13)+Chr(10)
-If FileSize("winfix.dll")=0 Then InitErrorStr=InitErrorStr+ "winfix.dll"+Chr(13)+Chr(10)
+If FileSize("FreeImage.dll")=0 Then InitErrorStr=InitErrorStr+ "FreeImage.dll"+Chr(13)+Chr(10)
 
 If Len(InitErrorStr)>0 Then
 	RuntimeError "The following DLLs were not found in the game directory:"+Chr(13)+Chr(10)+Chr(13)+Chr(10)+InitErrorStr
 EndIf
 
-Include "FastExt.bb"
-Include "FastText_Unicode.bb"
-Include "StrictLoads.bb"
+Include "Source code\StrictLoads.bb"
 
-CompatData%(12, 0) ;hopefully this fixes performance issues on Windows 8
 Global OptionFile$ = "options.ini"
 
 Global Font1%, Font2%, Font3%, Font4%, Font5%, Font6%
@@ -20,12 +16,12 @@ Global Font1%, Font2%, Font3%, Font4%, Font5%, Font6%
 ;Global VersionNumber$ = "1.2"
 Global VersionNumber$ = "0.1.0"
 
-AppTitle "SCP - Containment Breach - Nine Tailed Fox Mod - Launcher"
+AppTitle "SCP - CB - NTF Mod TSS - Launcher"
 
 Global MenuWhite%, MenuBlack%
 Global ButtonSFX%
 
-BumpPower 0.03
+;BumpPower 0.03
 
 Dim ArrowIMG(4)
 
@@ -87,7 +83,7 @@ EndIf
 
 Global MenuScale# = (GraphicHeight / 1024.0)
 
-SetBuffer BackBuffer()
+SetBuffer (BackBuffer())
 
 Global CurTime%, PrevTime%, LoopDelay%, FPSfactor#, FPSfactor2#
 Local CheckFPS%, ElapsedLoops%, FPS%, ElapsedTime#
@@ -105,7 +101,7 @@ SeedRnd MilliSecs()
 
 Global GameSaved%
 
-AppTitle "SCP - Containment Breach - Nine Tailed Fox Mod v"+VersionNumber
+AppTitle "SCP - CB - NTF Mod TSS v"+VersionNumber
 
 ;---------------------------------------------------------------------------------------------------------------------
 
@@ -118,13 +114,13 @@ Global LoadingBack% = LoadImage_Strict("Loadingscreens\loadingback.jpg")
 InitLoadingScreens("Loadingscreens\loadingscreens.ini")
 InitLoadingScreens("NineTailedFoxMod\Loadingscreens\loadingscreens.ini")
 
-Font1% = LoadFont_Strict("GFX\cour.ttf", Int(18 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
-;Font2% = LoadFont_Strict("GFX\courbd.ttf", Int(58 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
-Font2% = LoadFont_Strict("NineTailedFoxMod\GFX\Capture it.ttf", Int(58* (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
-Font3% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
-Font4% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
-Font5% = LoadFont_Strict("GFX\courbd.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
-Font6% = LoadFont_Strict("GFX\cour.ttf", Int(34 * (GraphicHeight / 1024.0)), 0,0,0,0, FT_DEFAULT)
+Font1% = LoadFont_Strict("GFX\cour.ttf", Int(18 * (GraphicHeight / 1024.0)), 0,0,0)
+;Font2% = LoadFont_Strict("GFX\courbd.ttf", Int(58 * (GraphicHeight / 1024.0)), 0,0,0,)
+Font2% = LoadFont_Strict("NineTailedFoxMod\GFX\Capture it.ttf", Int(58* (GraphicHeight / 1024.0)), 0,0,0)
+Font3% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
+Font4% = LoadFont_Strict("GFX\DS-DIGI.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0)
+Font5% = LoadFont_Strict("GFX\courbd.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
+Font6% = LoadFont_Strict("GFX\cour.ttf", Int(34 * (GraphicHeight / 1024.0)), 0,0,0)
 SetFont Font2
 
 Global BlinkMeterIMG% = LoadImage_Strict("GFX\blinkmeter.jpg")
@@ -147,7 +143,7 @@ Global KEY_UP=GetINIInt(OptionFile, "options", "Up key"), KEY_DOWN=GetINIInt(Opt
 Global KEY_BLINK=GetINIInt(OptionFile, "options", "Blink key"), KEY_SPRINT=GetINIInt(OptionFile, "options", "Sprint key")
 Global KEY_INV=GetINIInt(OptionFile, "options", "Inventory key"), KEY_CROUCH=GetINIInt(OptionFile, "options", "Crouch key")
 
-Const INFINITY# = (999.0) ^ (99999.0), NAN# = (-1.0) ^ (0.5)
+;Const INFINITY# = (999.0) ^ (99999.0), NAN# = (-1.0) ^ (0.5)
 
 Global Mesh_MinX#, Mesh_MinY#, Mesh_MinZ#
 Global Mesh_MaxX#, Mesh_MaxY#, Mesh_MaxZ#
@@ -177,7 +173,7 @@ Global Injuries#, Bloodloss#, Infect#
 
 Global RefinedItems%
 
-Include "Achievements.bb"
+Include "Source code\Achievements.bb"
 
 ;player coordinates, angle, speed, movement etc ---------------------------------------------------------------------
 Global DropSpeed#, HeadDropSpeed#, CurrSpeed#
@@ -221,9 +217,9 @@ Dim DrawArrowIcon%(4)
 
 ;misc ---------------------------------------------------------------------------------------------------------------
 
-Include "Difficulty.bb"
+Include "Source code\Difficulty.bb"
 
-Include "lang.bb"
+Include "Source code\lang.bb"
 
 LoadLanguages()
 
@@ -975,7 +971,7 @@ Global StoredCameraFogFar# = CameraFogFar
 
 Global MouseSens# = GetINIFloat("options.ini", "options", "mouse sensitivity")
 
-Include "dreamfilter.bb"
+Include "Source code\dreamfilter.bb"
 
 Dim LightSpriteTex(10)
 
@@ -1220,11 +1216,11 @@ DrawLoading(35, True)
 
 ;----------------------------------------------  Items  -----------------------------------------------------
 
-Include "Items.bb"
+Include "Source code\Items.bb"
 
 ;--------------------------------------- Particles ------------------------------------------------------------
 
-Include "Particles.bb"
+Include "Source code\Particles.bb"
 
 ;-------------------------------------  Doors --------------------------------------------------------------
 
@@ -1672,14 +1668,14 @@ End Function
 
 DrawLoading(40,True)
 
-Include "MapSystem.bb"
+Include "Source code\MapSystem.bb"
 
-Include "MTF.bb"
-Include "Guns.bb"
+Include "Source code\MTF.bb"
+Include "Source code\Guns.bb"
 
 DrawLoading(80,True)
 
-Include "NPCs.bb"
+Include "Source code\NPCs.bb"
 
 ;-------------------------------------  Events --------------------------------------------------------------
 
@@ -1953,7 +1949,7 @@ Function InitEvents()
 	
 End Function
 
-Include "UpdateEvents.bb"
+Include "Source code\UpdateEvents.bb"
 
 Function RemoveEvent(e.Events)
 	If e\Sound<>0 Then FreeSound e\Sound
@@ -2006,7 +2002,7 @@ Global ApacheObj%,ApacheRotorObj%
 
 ;---------------------------------------------------------------------------------------------------
 
-Include "menu.bb"
+Include "Source code\menu.bb"
 MainMenuOpen = True
 
 ;---------------------------------------------------------------------------------------------------
@@ -2026,28 +2022,39 @@ Global MoviePlayed%
 Global movie, movieSFX%
 
 If MoviePlayed%=False And Movie_ShouldPlay%=True
-	FlushKeys()
-	FlushMouse()
-	movieSFX% = LoadSound("NineTailedFoxMod\GFX\menu\ntf_aud_track.ogg")
-	ThreadFunctionPointer = FunctionPointer()
-	Goto skip1
-	ThreadFunction()
-	.skip1
-	movie = OpenMovie("NineTailedFoxMod\GFX\menu\ntf_intro_final.mpg")
-	If ChannelPlaying(MusicCHN) Then StopChannel(MusicCHN)
-	Thread = CreateThread(ThreadFunctionPointer,100)
-	PlaySound(movieSFX%)
-	Repeat
-		ShouldPlay% = 11
-		NowPlaying% = 11
-	Until MoviePlaying(movie)=False Or KeyHit(1) Or KeyHit(57) Or MouseHit(1)
-	CloseMovie(movie)
-	FreeThread(Thread)
-	FreeSound movieSFX%
-	movie = 0
-	movieSFX% = 0
+	HidePointer()
+	Local SplashScreenAudio%
 	
-	MoviePlayed% = True
+	Local ScaledGraphicHeight%
+    Local Ratio# = Float(RealGraphicWidth) / Float(RealGraphicHeight)
+
+	If Ratio > 1.76 And Ratio < 1.78 Then
+		ScaledGraphicHeight = RealGraphicHeight
+	Else
+    ScaledGraphicHeight = Float(RealGraphicWidth) / (16.0 / 9.0)
+	EndIf
+	
+	Local MovieFile$
+
+		MovieFile = "NineTailedFoxMod\GFX\menu\ntf_intro_final"
+				
+		Movie% = OpenMovie(MovieFile + ".avi")
+		Movie = OpenMovie(MovieFile + ".avi")
+
+		SplashScreenAudio% = StreamSound_Strict("ntf_aud_track" + ".ogg", SFXVolume, 0)
+
+		Repeat
+			Cls()
+			DrawMovie(Movie, 0, (RealGraphicHeight / 2 - ScaledGraphicHeight / 2), RealGraphicWidth, ScaledGraphicHeight)
+			Flip()
+		Until (GetKey() Lor (Not IsStreamPlaying_Strict(SplashScreenAudio)))
+		StopStream_Strict(SplashScreenAudio)
+		CloseMovie(Movie)
+
+		Cls()
+		Flip()
+	
+	ShowPointer()
 EndIf
 
 ;----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2242,7 +2249,7 @@ Repeat
 			Update_Fires()
 			Update_AshParticles()
 			UpdateRoomLights()
-			UpdateMeshLOD()
+			;UpdateMeshLOD()
 			;UpdateMapProps()
 			
 			If Contain173State% > 0 And Contain173State% < 3
@@ -2956,7 +2963,7 @@ Function MouseLook()
 		Local side# = Cos(Shake / 2.0) / 35.0		
 		Local roll# = Max(Min(Sin(Shake/2)*2.5*Min(Injuries+0.25,3.0),8.0),-8.0)
 		
-		;k‰‰nnet‰‰n kameraa sivulle jos pelaaja on vammautunut
+		;k??????nnet??????n kameraa sivulle jos pelaaja on vammautunut
 		;RotateEntity Collider, EntityPitch(Collider), EntityYaw(Collider), Max(Min(up*30*Injuries,50),-50)
 		PositionEntity Camera, EntityX(Collider), EntityY(Collider), EntityZ(Collider)
 		;RotateEntity Camera, 0, EntityYaw(Collider), roll*0.5
@@ -3028,7 +3035,7 @@ Function MouseLook()
 		
 	EndIf
 	
-	;pˆlyhiukkasia
+	;p???lyhiukkasia
 	If Rand(35) = 1 Then
 		Local pvt% = CreatePivot()
 		PositionEntity(pvt, EntityX(Camera, True), EntityY(Camera, True), EntityZ(Camera, True))
@@ -4523,7 +4530,7 @@ Function DrawGUI()
 								Case 0 ;randomkanava
 									ResumeChannel(RadioCHN(0))
 									If ChannelPlaying(RadioCHN(0)) = False Then RadioCHN(0) = PlaySound(RadioStatic)
-								Case 1 ;h‰lytyskanava
+								Case 1 ;h???lytyskanava
 									DebugLog RadioState(1) 
 									
 									ResumeChannel(RadioCHN(1))
@@ -4679,7 +4686,7 @@ Function DrawGUI()
 											If RadioCHN(Int(SelectedItem\state2)) <> 0 Then PauseChannel(RadioCHN(Int(SelectedItem\state2)))
 										EndIf
 										SelectedItem\state2 = i-2
-										;jos nykyist‰ kanavaa ollaan soitettu, laitetaan jatketaan toistoa samasta kohdasta
+										;jos nykyist??? kanavaa ollaan soitettu, laitetaan jatketaan toistoa samasta kohdasta
 										If RadioCHN(SelectedItem\state2)<>0 Then ResumeChannel(RadioCHN(SelectedItem\state2))
 									EndIf
 								Next
@@ -5297,10 +5304,10 @@ Function LoadEntities()
 	CameraFogColor (Camera, GetINIInt("options.ini", "options", "fog r"), GetINIInt("options.ini", "options", "fog g"), GetINIInt("options.ini", "options", "fog b"))
 	AmbientLight Brightness, Brightness, Brightness
 	
-	ScreenTexs[0] = CreateTexture(512, 512, 1+256+FE_RENDER+FE_ZRENDER)
-	ScreenTexs[1] = CreateTexture(512, 512, 1+256+FE_RENDER+FE_ZRENDER)
+	ScreenTexs[0] = CreateTexture(512, 512, 1+256)
+	ScreenTexs[1] = CreateTexture(512, 512, 1+256)
 	
-	InitFastResize()
+	;InitFastResize()
 	
 	CreateBlurImage()
 	;Listener = CreateListener(Camera)
@@ -5406,33 +5413,6 @@ Function LoadEntities()
 	GuardObj = LoadAnimMesh_Strict("GFX\npcs\guard.b3d") ;optimized Guards
 	;GuardTex = LoadTexture_Strict("GFX\npcs\body.jpg") ;optimized the guards even more
 	
-	If BumpEnabled Then
-		bump1 = LoadTexture_Strict("GFX\npcs\mtf_newnormal01.png")
-		TextureBlend bump1, FE_BUMP
-			
-		For i = 2 To CountSurfaces(MTFObj)
-			sf = GetSurface(MTFObj,i)
-			b = GetSurfaceBrush( sf )
-			t1 = GetBrushTexture(b,0)
-			
-			Select Lower(StripPath(TextureName(t1)))
-				Case "MTF_newdiffuse02.png"
-					
-					BrushTexture b, bump1, 0, 0
-					BrushTexture b, t1, 0, 1
-					PaintSurface sf,b
-					
-					If StripPath(TextureName(t1)) <> "" Then FreeTexture t1
-					FreeBrush b	
-			End Select
-			FreeBrush b
-			FreeTexture t1
-		Next
-		FreeTexture bump1	
-	EndIf
-	
-	
-	
 	ClassDObj = LoadAnimMesh_Strict("GFX\npcs\classd.b3d") ;optimized Class-D's and scientists/researchers
 	ApacheObj = LoadAnimMesh_Strict("GFX\apache.b3d") ;optimized Apaches (helicopters)
 	ApacheRotorObj = LoadAnimMesh_Strict("GFX\apacherotor.b3d") ;optimized the Apaches even more
@@ -5479,19 +5459,6 @@ Function LoadEntities()
 	HideEntity LeverBaseOBJ
 	LeverOBJ = LoadMesh_Strict("GFX\map\leverhandle.x")
 	HideEntity LeverOBJ
-	
-	For i = 0 To 1
-		HideEntity BigDoorOBJ(i)
-		If BumpEnabled And 0 Then 
-			Local bumptex = LoadTexture_Strict("GFX\map\containmentdoorsbump.jpg")
-			TextureBlend bumptex, FE_BUMP
-			Local tex = LoadTexture_Strict("GFX\map\containment_doors.jpg")	
-			EntityTexture BigDoorOBJ(i), bumptex, 0, 0
-			EntityTexture BigDoorOBJ(i), tex, 0, 1
-			FreeEntity tex
-			FreeEntity bumptex
-		EndIf
-	Next
 	
 	DrawLoading(15)
 	
@@ -5986,11 +5953,11 @@ Function NullGame()
 		If ChannelPlaying(RadioCHN(i)) Then StopChannel(RadioCHN(i))
 	Next
 	
-	DeInitExt
+	;DeInitExt
 	
 	ClearWorld
 	
-	InitExt
+	;InitExt
 	
 	For i=0 To 9
 		If TempSounds[i]<>0 Then FreeSound TempSounds[i] : TempSounds[i]=0
@@ -6005,7 +5972,7 @@ Function NullGame()
 	
 End Function
 
-Include "save.bb"
+Include "Source code\save.bb"
 
 ;--------------------------------------- music & sounds ----------------------------------------------
 
@@ -6918,7 +6885,7 @@ Function UpdateMTF%()
 	Local r.Rooms, n.NPCs
 	Local dist#, i%
 	
-	;mtf ei viel‰ spawnannut, spawnataan jos pelaaja menee tarpeeksi l‰helle gate b:t‰
+	;mtf ei viel??? spawnannut, spawnataan jos pelaaja menee tarpeeksi l???helle gate b:t???
 	If MTFtimer = 0 Then
 		If Rand(30)=1 Then
 			
@@ -6953,23 +6920,23 @@ Function UpdateMTF%()
 		EndIf
 	Else
 		
-		;mtf spawnannut, aletaan p‰ivitt‰‰ teko‰ly‰
+		;mtf spawnannut, aletaan p???ivitt?????? teko???ly???
 		
 		MTFtimer=MTFtimer+FPSfactor
 		
-		;mtfroomstate 0 = huonetta ei ole alettu viel‰ etsi‰
+		;mtfroomstate 0 = huonetta ei ole alettu viel??? etsi???
 		;mtfroomstate 1 = joku tiimi on menossa huoneeseen
 		;mtfroomstate 2 = huone on tarkistettu
-		;mtfroomstate 3 = huoneeseen ei lˆydetty reitti‰ -> yritet‰‰n v‰h‰n ajan p‰‰st‰ uudestaan
+		;mtfroomstate 3 = huoneeseen ei l???ydetty reitti??? -> yritet??????n v???h???n ajan p??????st??? uudestaan
 		
-		;prevstate 0 = k‰y l‰pi tutkimattomia huoneita
+		;prevstate 0 = k???y l???pi tutkimattomia huoneita
 		
-		;p‰ivitet‰‰n kymmenen sekunnin v‰lein MTF:n "kollektiivinen teko‰ly"
+		;p???ivitet??????n kymmenen sekunnin v???lein MTF:n "kollektiivinen teko???ly"
 		If MTFtimer > (70*10) Then
 			
 			DebugLog "MTF update"
 			
-			;tiimi saapunut 106:n huoneeseen, "pyydystet‰‰n" se
+			;tiimi saapunut 106:n huoneeseen, "pyydystet??????n" se
 			If MTFrooms[0]<>Null Then
 				If MTFroomState[0]=2 Then
 					If PlayerRoom\RoomTemplate\Name<>"room106" Then
@@ -6989,7 +6956,7 @@ Function UpdateMTF%()
 				If MTFroomState[i]=1 Then MTFroomState[i] = 0
 				
 				If MTFroomState[i]=3 Then
-					DebugLog "ei reitti‰ ("+MTFrooms[i]\RoomTemplate\Name+"), ohitetaan"
+					DebugLog "ei reitti??? ("+MTFrooms[i]\RoomTemplate\Name+"), ohitetaan"
 					If Rand(8)=1 Then MTFroomState[i] = 0
 				EndIf		
 			Next
@@ -6997,7 +6964,7 @@ Function UpdateMTF%()
 			For n.NPCs = Each NPCs
 				If n\NPCtype = NPCtypeMTF2 And n\Target = Null And n\PathStatus <> 1 And n\State < 4 Then
 					DebugLog "MTF 1"
-					;etsit‰‰n reitti l‰himp‰‰n huoneeseen jota ei ole viet‰ k‰yty tutkimassa
+					;etsit??????n reitti l???himp??????n huoneeseen jota ei ole viet??? k???yty tutkimassa
 					Local targetRoom%, targetRoomDist#=500.0
 					For i = 0 To 6
 						If MTFrooms[i]<>Null Then
@@ -7013,7 +6980,7 @@ Function UpdateMTF%()
 					
 					If targetRoomDist < 500.0 Then
 						If Distance(EntityX(MTFrooms[targetRoom]\obj,True),EntityZ(MTFrooms[targetRoom]\obj,True),EntityX(n\Collider),EntityZ(n\Collider))< 4.0 Then
-							;tiimi saapunut huoneeseen, merkataan ett‰ se on tarkistettu
+							;tiimi saapunut huoneeseen, merkataan ett??? se on tarkistettu
 							MTFroomState[targetRoom]=2
 							DebugLog "MTF 2"
 							
@@ -7289,11 +7256,11 @@ Function CircleToLineSegIsect% (cx#, cy#, r#, l1x#, l1y#, l2x#, l2y#)
 	
 	;Palauttaa:
 	;  True (1) kun:
-	;      Ympyr‰ [keskipiste = (cx, cy): s‰de = r]
+	;      Ympyr??? [keskipiste = (cx, cy): s???de = r]
 	;      leikkaa janan, joka kulkee pisteiden (l1x, l1y) & (l2x, l2y) kaitta
 	;  False (0) muulloin
 	
-	;Ympyr‰n keskipisteen ja (ainakin toisen) janan p‰‰tepisteen et‰isyys < r
+	;Ympyr???n keskipisteen ja (ainakin toisen) janan p??????tepisteen et???isyys < r
 	;-> leikkaus
 	If Distance(cx, cy, l1x, l1y) <= r Then
 		Return True
@@ -7303,7 +7270,7 @@ Function CircleToLineSegIsect% (cx#, cy#, r#, l1x#, l1y#, l2x#, l2y#)
 		Return True
 	EndIf	
 	
-	;Vektorit (janan vektori ja vektorit janan p‰‰tepisteist‰ ympyr‰n keskipisteeseen)
+	;Vektorit (janan vektori ja vektorit janan p??????tepisteist??? ympyr???n keskipisteeseen)
 	Local SegVecX# = l2x - l1x
 	Local SegVecY# = l2y - l1y
 	
@@ -7326,21 +7293,21 @@ Function CircleToLineSegIsect% (cx#, cy#, r#, l1x#, l1y#, l2x#, l2y#)
 		Return False
 	EndIf
 	
-	;Janan p‰‰tepisteiden kautta kulkevan suoran ;yht‰lˆ; (ax + by + c = 0)
+	;Janan p??????tepisteiden kautta kulkevan suoran ;yht???l???; (ax + by + c = 0)
 	Local a# = (l2y - l1y) / (l2x - l1x)
 	Local b# = -1
 	Local c# = -(l2y - l1y) / (l2x - l1x) * l1x + l1y
 	
-	;Ympyr‰n keskipisteen et‰isyys suorasta
+	;Ympyr???n keskipisteen et???isyys suorasta
 	Local d# = Abs(a * cx + b * cy + c) / Sqr(a * a + b * b)
 	
-	;Ympyr‰ on liian kaukana
+	;Ympyr??? on liian kaukana
 	;-> ei leikkausta
 	If d > r Then Return False
 	
 	;Local kateetin_pituus# = Cos(angle) * hyp
 	
-	;Jos p‰‰st‰‰n t‰nne saakka, ympyr‰ ja jana leikkaavat (tai ovat sis‰kk‰in)
+	;Jos p??????st??????n t???nne saakka, ympyr??? ja jana leikkaavat (tai ovat sis???kk???in)
 	Return True
 End Function
 
@@ -7839,19 +7806,29 @@ Function EntityScaleZ#(entity%, globl% = False)
 End Function 
 
 Function Graphics3DExt%(width%,height%,depth%=32,mode%=2)
-	If FE_InitExtFlag = 1 Then DeInitExt() ;prevent FastExt from breaking itself
+	;If FE_InitExtFlag = 1 Then DeInitExt() ;prevent FastExt from breaking itself
 	Graphics3D width,height,depth,mode
-	InitExt()
+	InitFastResize()
+	;InitExt()
 	
 	AntiAlias GetINIInt(OptionFile,"options","antialias")
-	TextureAnisotropy% (GetINIInt(OptionFile,"options","anisotropy"),-1)
+	;TextureAnisotropy% (GetINIInt(OptionFile,"options","anisotropy"),-1)
 End Function
 
 Function ResizeImage2(image%,width%,height%)
-   img% = CreateImage(width,height)
-   CopyRectStretch(0,0,ImageWidth(image),ImageHeight(image),0,0,width,height,ImageBuffer(image),ImageBuffer(img))
-   FreeImage image
-   Return img
+    img% = CreateImage(width,height)
+
+	oldWidth% = ImageWidth(image)
+	oldHeight% = ImageHeight(image)
+	CopyRect 0,0,oldWidth,oldHeight,1024-oldWidth/2,1024-oldHeight/2,ImageBuffer(image),TextureBuffer(fresize_texture)
+	SetBuffer BackBuffer()
+	ScaleRender(0,0,2048.0 / Float(GraphicWidth) * Float(width) / Float(oldWidth), 2048.0 / Float(GraphicWidth) * Float(height) / Float(oldHeight))
+	;might want to replace Float(GraphicWidth) with Max(GraphicWidth,GraphicHeight) if portrait sizes cause issues
+	;everyone uses landscape so it's probably a non-issue
+	CopyRect GraphicWidth/2-width/2,GraphicHeight/2-height/2,width,height,0,0,BackBuffer(),ImageBuffer(img)
+
+    FreeImage image
+    Return img
 End Function
 
 
@@ -8021,7 +7998,7 @@ Function InitFastResize()
 	fresize_image = spr
 	
    ;Create texture
-	fresize_texture = CreateTexture(2048, 2048, 1+256+FE_RENDER+FE_ZRENDER)
+	fresize_texture = CreateTexture(2048, 2048, 1+256)
 	;TextureAnisotropy(fresize_texture)
 	EntityTexture spr, fresize_texture
 	
@@ -8029,20 +8006,17 @@ Function InitFastResize()
 End Function
 
 Function RenderWorldToTexture()
-	
-   ;EntityAlpha ark_blur_image, 1.0
+
+	;EntityAlpha ark_blur_image, 1.0
 	HideEntity fresize_image
-	old_buffer% = GetBuffer()
-	SetBuffer(TextureBuffer(fresize_texture))
+	old_buffer% = BackBuffer()
+	;SetBuffer(TextureBuffer(fresize_texture))
 	RenderWorld()
 	SetBuffer(old_buffer)
-   ;CopyRect ark_sw / 2 - 1024, ark_sh / 2 - 1024, 2048, 2048, 0, 0, BackBuffer(), TextureBuffer(ark_blur_texture)
-   ;CopyRect 0, 0, GraphicWidth, GraphicHeight, 1024.0 - GraphicWidth/2, 1024.0 - GraphicHeight/2, BackBuffer(), TextureBuffer(ark_blur_texture)
-	
+	;CopyRect ark_sw / 2 - 1024, ark_sh / 2 - 1024, 2048, 2048, 0, 0, BackBuffer(), TextureBuffer(ark_blur_texture)
+	;CopyRect 0, 0, GraphicWidth, GraphicHeight, 1024.0 - GraphicWidth/2, 1024.0 - GraphicHeight/2, BackBuffer(), TextureBuffer(ark_blur_texture)
+    TextureBuffer(ark_blur_texture)
 End Function
-
-
-
 
 Function UpdateScreenGamma()
 	Local n# = 1.0/ScreenGamma
